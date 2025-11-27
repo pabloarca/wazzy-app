@@ -1,4 +1,5 @@
-FROM node:22-alpine
+
+FROM node:20
 
 WORKDIR /app
 
@@ -17,7 +18,7 @@ RUN npx prisma generate
 
 EXPOSE 4000
 
-# 4. Al arrancar el contenedor:
-#    - sincroniza el schema con la DB (db push)
-#    - arranca el server
+# 4. Al arrancar:
+#    - Sincroniza el schema con la DB (db push)
+#    - Arranca el server
 CMD ["sh", "-c", "npx prisma db push && node src/server.js"]
