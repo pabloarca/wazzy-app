@@ -8,6 +8,7 @@ const navItems = [
   { label: 'Principal', path: '/dashboard' },
   { label: 'Perfil', path: '/profile' },
   { label: 'Empresa', path: '/empresa' },
+  { label: 'Sincronizar', path: '/sincronizar' },
 ]
 
 export function PanelLayout() {

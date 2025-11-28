@@ -26,18 +26,7 @@ export function ProfilePage() {
               <CardTitle>Perfil</CardTitle>
               <CardDescription>Información de la cuenta</CardDescription>
             </div>
-            <Button
-              variant="secondary"
-              onClick={() =>
-                refetch().catch(() =>
-                  toast({
-                    title: 'No se pudo actualizar',
-                  })
-                )
-              }
-            >
-              Actualizar
-            </Button>
+            
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             {isLoading ? (

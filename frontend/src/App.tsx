@@ -6,6 +6,7 @@ import { DashboardPage } from './pages/Dashboard'
 import { ProfilePage } from './pages/Profile'
 import { CompanyPage } from './pages/Company'
 import { PanelLayout } from './components/PanelLayout'
+import { SyncPage } from './pages/Sync'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/empresa" element={<CompanyPage />} />
+          <Route path="/sincronizar" element={<SyncPage />} />
         </Route>
       </Route>
 
