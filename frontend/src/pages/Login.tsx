@@ -74,7 +74,7 @@ export function LoginPage() {
               />
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full bg-[#77F5BD] text-black hover:bg-[#69dfae]">
                 Entrar
               </Button>
               <p className="text-sm text-muted-foreground">
