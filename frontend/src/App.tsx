@@ -7,6 +7,7 @@ import { ProfilePage } from './pages/Profile'
 import { CompanyPage } from './pages/Company'
 import { PanelLayout } from './components/PanelLayout'
 import { SyncPage } from './pages/Sync'
+import { PrivacyPolicyPage } from './pages/Privacy'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/" element={<Navigate to="/dashboard" />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/privacidad" element={<PrivacyPolicyPage />} />
 
       <Route element={<ProtectedRoute />}>
         <Route element={<PanelLayout />}>
