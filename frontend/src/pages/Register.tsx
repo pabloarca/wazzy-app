@@ -8,6 +8,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '../components/ui/input'
 import { useToast } from '../components/ui/use-toast'
 import { useAuth } from '../context/auth-context'
+import { PasswordInput } from '../components/ui/password-input'
+
 
 const registerSchema = z
   .object({
@@ -86,7 +88,7 @@ export function RegisterPage() {
                   <FormItem>
                     <FormLabel>Contraseña</FormLabel>
                     <FormControl>
-                      <Input placeholder="********" type="password" {...field} />
+                      <PasswordInput placeholder="********" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -99,7 +101,7 @@ export function RegisterPage() {
                   <FormItem>
                     <FormLabel>Confirmar contraseña</FormLabel>
                     <FormControl>
-                      <Input placeholder="********" type="password" {...field} />
+                      <PasswordInput placeholder="********" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
