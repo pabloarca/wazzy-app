@@ -1,4 +1,4 @@
-// Prisma schema for SQLite user store
+// Prisma schema 
 
 generator client {
   provider = "prisma-client-js"
@@ -14,4 +14,9 @@ model User {
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+  
+  // --- NUEVOS CAMPOS ---
+  whatsappToken       String?  // El token de Meta (System User Token)
+  whatsappWabaId      String?  // ID de la cuenta comercial (opcional por ahora)
+  whatsappConnectedAt DateTime?
 }

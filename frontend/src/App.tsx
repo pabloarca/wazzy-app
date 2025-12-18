@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { ProtectedRoute } from './components/ProtectedRoute'
+// import { ProtectedRoute } from './components/ProtectedRoute' // <-- Opcional: Puedes comentar esto
 import { LoginPage } from './pages/Login'
 import { RegisterPage } from './pages/Register'
 import { DashboardPage } from './pages/Dashboard'
@@ -17,14 +17,21 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/privacidad" element={<PrivacyPolicyPage />} />
 
-      <Route element={<ProtectedRoute />}>
+      {/* --- INICIO DEL BY-PASS --- */}
+      {/* Comentamos el Guardián de seguridad para que deje pasar siempre */}
+      {/* <Route element={<ProtectedRoute />}> */}
+
+        {/* Mantenemos el Layout visual, pero ahora es accesible públicamente */}
         <Route element={<PanelLayout />}>
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/empresa" element={<CompanyPage />} />
           <Route path="/sincronizar" element={<SyncPage />} />
         </Route>
-      </Route>
+
+      {/* Cerramos el comentario del Guardián */}
+      {/* </Route> */}
+      {/* --- FIN DEL BY-PASS --- */}
 
       <Route path="*" element={<Navigate to="/dashboard" />} />
     </Routes>
