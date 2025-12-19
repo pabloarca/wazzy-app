@@ -4,21 +4,27 @@ import { Button } from './ui/button'
 import { useAuth } from '../context/auth-context'
 import { cn } from '../lib/utils'
 
-const navItems = [
-  { label: 'Principal', path: '/dashboard' },
-  { label: 'Perfil', path: '/profile' },
-  { label: 'Empresa', path: '/empresa' },
-  { label: 'Sincronizar', path: '/sincronizar' },
-]
+import { useLanguage } from '../context/language-context'
 
 export function PanelLayout() {
   const { pathname } = useLocation()
   const { logout, user } = useAuth()
+  const { translations } = useLanguage()
+
+  const navItems = useMemo(
+    () => [
+      { label: translations.nav.dashboard, path: '/dashboard' },
+      { label: translations.nav.profile, path: '/profile' },
+      { label: translations.nav.company, path: '/empresa' },
+      { label: translations.nav.sync, path: '/sincronizar' },
+    ],
+    [translations.nav]
+  )
 
   const currentSection = useMemo(() => {
     const active = navItems.find((item) => pathname.startsWith(item.path))
-    return active?.label ?? 'Panel'
-  }, [pathname])
+    return active?.label ?? translations.nav.sectionLabel
+  }, [navItems, pathname, translations.nav.sectionLabel])
 
   return (
     <div className="flex min-h-screen bg-muted/30 text-sm">
@@ -55,10 +61,10 @@ export function PanelLayout() {
             className="w-full justify-start text-base text-destructive hover:text-destructive"
             onClick={logout}
           >
-            Cerrar sesión
+          {translations.nav.logout}  
           </Button>
           <p className="mt-2 text-xs text-muted-foreground">
-            Sesión: {user?.name || user?.email || 'Invitado'}
+            {translations.nav.session}: {user?.name || user?.email || translations.nav.guest}
           </p>
         </div>
       </aside>
@@ -67,7 +73,7 @@ export function PanelLayout() {
         <header className="flex items-center justify-center border-b bg-background px-8 py-4 shadow-sm">
           <div className="text-center">
             <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-              Estás en
+              {translations.nav.headerPrefix}
             </p>
             <p className="text-xl font-semibold text-foreground">
               {currentSection}
@@ -76,7 +82,7 @@ export function PanelLayout() {
         </header>
 
         <main className="flex-1 px-8 py-6">
-          {/* Aquí se pinta la página actual: Principal / Perfil / Empresa */}
+          
           <Outlet />
         </main>
       </div>

@@ -78,7 +78,7 @@ async function exchangeCodeForToken(req, res) {
     });
 
   } catch (error) {
-    console.error('💥 Error interno:', error);
+    console.error('Error interno:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 }

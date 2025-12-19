@@ -1,15 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
 import { Button } from '../components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
-import { useToast } from '../components/ui/use-toast'
+
 import { useAuth, fetchProfile } from '../context/auth-context'
-import { PanelLayout } from '../components/PanelLayout'
+import { useLanguage } from '../context/language-context'
 
 export function ProfilePage() {
   const { user, logout } = useAuth()
-  const { toast } = useToast()
 
-  const { data, isLoading, refetch } = useQuery({
+  const { translations } = useLanguage()
+
+ 
+  const { data, isLoading } = useQuery({
     queryKey: ['/auth/me'],
     queryFn: fetchProfile,
     enabled: !!user,
@@ -18,38 +20,37 @@ export function ProfilePage() {
   const profile = data ?? user
 
   return (
-  
-      <div className="mx-auto flex max-w-3xl flex-col gap-6">
-        <Card>
-          <CardHeader className="flex items-center justify-between">
-            <div>
-              <CardTitle>Perfil</CardTitle>
-              <CardDescription>Información de la cuenta</CardDescription>
-            </div>
-            
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm text-muted-foreground">
-            {isLoading ? (
-              <p>Cargando perfil...</p>
-            ) : (
-              <>
-                <p>
-                  <span className="font-medium text-foreground">Correo:</span> {profile?.email}
-                </p>
-                <p>
-                  <span className="font-medium text-foreground">Nombre:</span> {profile?.name ?? 'Sin nombre'}
-                </p>
-                <p>
-                  <span className="font-medium text-foreground">ID:</span> {profile?.id ?? 'N/D'}
-                </p>
-              </>
-            )}
-            <Button variant="destructive" onClick={logout}>
-              Cerrar sesión
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
     
+    <div className="mx-auto flex max-w-3xl flex-col gap-6">
+      <Card>
+        <CardHeader className="flex items-center justify-between">
+          <div>
+            <CardTitle>{translations.profile.title}</CardTitle>
+            <CardDescription>{translations.profile.description}</CardDescription>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3 text-sm text-muted-foreground">
+          {isLoading ? (
+            <p>{translations.profile.loading}</p>
+          ) : (
+            <>
+              <p>
+                <span className="font-medium text-foreground">{translations.profile.email}:</span> {profile?.email}
+              </p>
+              <p>
+                <span className="font-medium text-foreground">{translations.profile.name}:</span>{' '}
+                {profile?.name ?? translations.profile.missingName}
+              </p>
+              <p>
+                <span className="font-medium text-foreground">{translations.profile.id}:</span> {profile?.id ?? translations.profile.missingId}
+              </p>
+            </>
+          )}
+          <Button variant="destructive" onClick={logout}>
+            {translations.profile.logout}
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
