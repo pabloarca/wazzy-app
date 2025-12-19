@@ -145,8 +145,10 @@ export function PrivacyPolicyPage() {
             </ul>
           </div>
 
+          
+          
+
           <div className="space-y-3">
-            
             <h3 className="text-xl font-semibold">{privacy.recipients.title}</h3>
             <p className="text-sm leading-relaxed text-muted-foreground">{privacy.recipients.intro}</p>
 
@@ -207,6 +209,16 @@ export function PrivacyPolicyPage() {
               </p>
             ))}
           </div>
+
+          <div className="space-y-3">
+            <h3 className="text-xl font-semibold">{privacy.waba.title}</h3>
+            {privacy.waba.paragraphs.map((paragraph) => (
+              <p key={paragraph} className="text-sm leading-relaxed text-muted-foreground">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+          
         </section>
 
         <footer className="flex flex-col gap-3 text-center text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">

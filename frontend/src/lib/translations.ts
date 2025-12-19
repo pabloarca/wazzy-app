@@ -60,6 +60,10 @@ export type TranslationResources = {
     confirmPassword: string
     passwordMismatch: string
     minName: string
+    acceptTermsPrefix: string
+    termsLink: string
+    acceptTermsError: string
+    
   }
   dashboard: {
     welcome: string
@@ -149,6 +153,10 @@ export type TranslationResources = {
       title: string
       paragraphs: string[]
     }
+    waba: {
+      title: string
+      paragraphs: string[]
+    }
     youtube: {
       paragraphs: string[]
       provider: string
@@ -222,6 +230,10 @@ export const translations: Record<Language, TranslationResources> = {
       confirmPassword: 'Confirm the password',
       passwordMismatch: 'Passwords do not match',
       minName: 'Enter your name',
+      acceptTermsPrefix: 'I accept the',
+      termsLink: 'terms and conditions',
+      acceptTermsError: 'You must accept the terms and conditions',
+
     },
     dashboard: {
       welcome: 'Welcome',
@@ -289,6 +301,7 @@ export const translations: Record<Language, TranslationResources> = {
           description:
             'Request access, correction, deletion, restriction, portability, or object to processing in certain cases. See “Your Rights” for details.',
         },
+        
       ],
       intro: {
         title: 'Privacy Policy',
@@ -391,6 +404,15 @@ export const translations: Record<Language, TranslationResources> = {
           'If buttons are embedded on our Website, YouTube may automatically collect information. Pages you visit may transmit data to YouTube. Through this technical process, YouTube may receive personal data such as the user’s IP address and browsing habits to optimise targeted advertising. YouTube may store this information in the United States and may share it with third parties where appropriate. If the user is logged in to YouTube, YouTube may recognise the user’s activity, and embedded buttons may allow YouTube to associate such activity with the user profile, store it, and process it, which may involve transfers outside the EEA. The privacy safeguards offered by YouTube can be reviewed in its privacy policy.',
         ],
       },
+      waba: {
+          title: '9. WhatsApp Business Platform (WABA)',
+          paragraphs: [
+            '5.1 Each Holder connects, via Embedded Signup, their own Business Manager, WABA, and phone number (phone_number_id). Wazzy does not reuse numbers or WABAs between clients.',
+            '5.2 Messaging: by default, Wazzy only replies to conversations initiated by the user within the 24-hour window. No proactive messages (e.g., reminders) are sent unless the Holder explicitly enables it and meets WhatsApp’s requirements (approved templates and prior consent).',
+            '5.3 The use of the channel is subject to WhatsApp/Meta’s terms and policies; the Holder ensures that its activity and content comply with those policies.',
+            '5.4 Acceptable Use of Messaging: Wazzy is not a marketing or bulk messaging platform. The system only responds to messages initiated by the client and prohibits any use for spam, campaigns, or unsolicited communications. Wazzy may suspend or terminate accounts that use the service in violation of this policy.',
+          ],
+        },
       youtube: {
         paragraphs: [],
         provider: '',
@@ -462,6 +484,10 @@ export const translations: Record<Language, TranslationResources> = {
       confirmPassword: 'Confirma la contraseña',
       passwordMismatch: 'Las contraseñas no coinciden',
       minName: 'Ingresa tu nombre',
+      acceptTermsPrefix: 'Acepto los',
+      termsLink: 'términos y condiciones',
+      acceptTermsError: 'Debes aceptar los términos y condiciones',
+
     },
     dashboard: {
       welcome: 'Bienvenido',
@@ -631,6 +657,15 @@ export const translations: Record<Language, TranslationResources> = {
           'Si se incrustan botones en nuestro Sitio Web, YouTube puede recopilar información de forma automática. Las páginas que visitas pueden transmitir datos a YouTube. A través de este proceso técnico, YouTube puede recibir datos personales como la dirección IP del usuario y hábitos de navegación para optimizar la publicidad dirigida. YouTube puede almacenar esta información en Estados Unidos y compartirla con terceros cuando corresponda. Si el usuario ha iniciado sesión en YouTube, puede reconocerse su actividad y los botones incrustados pueden permitir asociar dicha actividad al perfil del usuario, almacenarla y tratarla, lo que puede implicar transferencias fuera del EEE. Las garantías de privacidad de YouTube pueden consultarse en su política.',
         ],
       },
+      waba: {
+      title: '9. Plataforma de WhatsApp Business (WABA)',
+      paragraphs: [
+        '5.1 Cada Titular conecta, mediante Embedded Signup, su propio Business Manager, WABA y número de teléfono (phone_number_id). Wazzy no reutiliza números ni WABAs entre clientes.',
+        '5.2 Mensajería: por defecto, Wazzy solo responde a conversaciones iniciadas por el usuario dentro de la ventana de 24 horas. No se envían mensajes proactivos (ej. recordatorios) a menos que el Titular lo habilite explícitamente y cumpla los requisitos de WhatsApp (plantillas aprobadas y consentimiento previo).',
+        '5.3 El uso del canal está sujeto a los términos y políticas de WhatsApp/Meta; el Titular garantiza que su actividad y contenido cumplen con dichas políticas.',
+        '5.4 Uso Aceptable de Mensajería: Wazzy no es una plataforma de marketing ni de mensajería masiva. El sistema solo responde a mensajes iniciados por el cliente y prohíbe cualquier uso para spam, campañas o comunicaciones no solicitadas. Wazzy puede suspender o terminar cuentas que usen el servicio violando esta política.',
+      ],
+    },
       youtube: {
         paragraphs: [],
         provider: '',
