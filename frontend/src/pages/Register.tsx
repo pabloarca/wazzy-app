@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Link, useNavigate } from 'react-router-dom'
@@ -9,26 +10,42 @@ import { Input } from '../components/ui/input'
 import { useToast } from '../components/ui/use-toast'
 import { useAuth } from '../context/auth-context'
 import { PasswordInput } from '../components/ui/password-input'
+import { useLanguage } from '../context/language-context'
 
-
-const registerSchema = z
-  .object({
-    name: z.string().min(2, 'Ingresa tu nombre'),
-    email: z.string().email('Correo inválido'),
-    password: z.string().min(6, 'Mínimo 6 caracteres'),
-    confirmPassword: z.string().min(6, 'Confirma la contraseña'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Las contraseñas no coinciden',
-    path: ['confirmPassword'],
-  })
-
-export type RegisterFormValues = z.infer<typeof registerSchema>
+export type RegisterFormValues = {
+  name: string
+  email: string
+  password: string
+  confirmPassword: string
+}
 
 export function RegisterPage() {
+  const { translations } = useLanguage()
   const { register: registerUser } = useAuth()
   const navigate = useNavigate()
   const { toast } = useToast()
+
+  const registerSchema = useMemo(
+    () =>
+      z
+        .object({
+          name: z.string().min(2, translations.register.minName),
+          email: z.string().email(translations.register.invalidEmail),
+          password: z.string().min(6, translations.register.minPassword),
+          confirmPassword: z.string().min(6, translations.register.confirmPassword),
+        })
+        .refine((data) => data.password === data.confirmPassword, {
+          message: translations.register.passwordMismatch,
+          path: ['confirmPassword'],
+        }),
+    [
+      translations.register.confirmPassword,
+      translations.register.invalidEmail,
+      translations.register.minName,
+      translations.register.minPassword,
+      translations.register.passwordMismatch,
+    ]
+  )
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -38,10 +55,10 @@ export function RegisterPage() {
   const onSubmit = async (values: RegisterFormValues) => {
     try {
       await registerUser({ name: values.name, email: values.email, password: values.password })
-      toast({ title: 'Registro completado', description: 'Ya puedes usar tu cuenta' })
+      toast({ title: translations.register.successTitle, description: translations.register.successDescription })
       navigate('/dashboard')
     } catch (error) {
-      toast({ title: 'Error al registrarse', description: (error as Error).message })
+      toast({ title: translations.register.errorTitle, description: translations.register.errorDescription })
     }
   }
 
@@ -49,8 +66,8 @@ export function RegisterPage() {
     <div className="flex min-h-screen items-center justify-center bg-muted/20 p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Crear cuenta</CardTitle>
-          <CardDescription>Completa tus datos para registrarte</CardDescription>
+          <CardTitle>{translations.register.title}</CardTitle>
+          <CardDescription>{translations.register.description}</CardDescription>
         </CardHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -60,9 +77,9 @@ export function RegisterPage() {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nombre</FormLabel>
+                    <FormLabel>{translations.register.nameLabel}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Juan Perez" {...field} />
+                      <Input placeholder={translations.register.namePlaceholder} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -73,9 +90,9 @@ export function RegisterPage() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Correo electrónico</FormLabel>
+                    <FormLabel>{translations.register.emailLabel}</FormLabel>
                     <FormControl>
-                      <Input placeholder="tu@correo.com" type="email" {...field} />
+                      <Input placeholder={translations.register.emailPlaceholder} type="email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -86,9 +103,9 @@ export function RegisterPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Contraseña</FormLabel>
+                    <FormLabel>{translations.register.passwordLabel}</FormLabel>
                     <FormControl>
-                      <PasswordInput placeholder="********" {...field} />
+                      <PasswordInput placeholder={translations.register.passwordPlaceholder} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -99,9 +116,9 @@ export function RegisterPage() {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirmar contraseña</FormLabel>
+                    <FormLabel>{translations.register.confirmPasswordLabel}</FormLabel>
                     <FormControl>
-                      <PasswordInput placeholder="********" {...field} />
+                      <PasswordInput placeholder={translations.register.passwordPlaceholder} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -110,12 +127,12 @@ export function RegisterPage() {
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
               <Button type="submit" className="w-full bg-[#77F5BD] text-black hover:bg-[#69dfae]">
-                Crear cuenta
+                {translations.register.submit}
               </Button>
               <p className="text-sm text-muted-foreground">
-                ¿Ya tienes cuenta?{' '}
+                {translations.register.question}{' '}
                 <Link className="text-primary hover:underline" to="/login">
-                  Inicia sesión
+                  {translations.register.cta}
                 </Link>
               </p>
             </CardFooter>
